@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../styles/Signup.module.css";
+import styles from "../styles/Form.module.css";
 
 function Form(props) {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -31,9 +31,15 @@ function Form(props) {
 
   const formIsValid = emailIsValid && passwordIsValid;
 
+  const submitHandler = (event) => {
+    console.log(enteredEmail, enteredPassword);
+    event.preventDefault();
+    props.onSubmit({ email: enteredEmail, password: enteredPassword });
+  };
+
   return (
     <div className={styles.wrapper}>
-      <form className={styles.form} onSubmit={props.onSubmit}>
+      <form className={styles.form} onSubmit={submitHandler}>
         <h2>{props.title}</h2>
         <div className={styles.control}>
           <label htmlFor="email">이메일</label>
