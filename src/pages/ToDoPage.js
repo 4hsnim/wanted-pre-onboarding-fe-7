@@ -9,6 +9,7 @@ function ToDoPage() {
       <ToDoForm />
       <div className={styles.wrapper}>
         <h2>할일 목록</h2>
+
         <ToDo />
         <ToDo />
         <ToDo />
