@@ -3,3 +3,7 @@
 * {
   font-family: "Hanna", fantasy;
 }
+
+button {
+  cursor: pointer;
+}

@@ -24,13 +24,32 @@ function ToDoPage() {
       });
   };
 
+  const submitHandler = async (newtodo) => {
+    const enteredTodoValue = newtodo.current.value;
+    await axios({
+      url: "https://pre-onboarding-selection-task.shop/todos",
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+        "Content-Type": "application/json",
+      },
+      data: { todo: enteredTodoValue },
+    })
+      .then((response) => {
+        setToDoList((prevData) => [...prevData, response.data]);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   useEffect(() => {
     getTodoList();
   }, []);
 
   return (
     <>
-      <ToDoForm />
+      <ToDoForm onSubmit={submitHandler} />
       <div className={styles.wrapper}>
         <h2>할일 목록</h2>
         {toDoList && toDoList.map((todo) => <ToDo data={todo} key={todo.id} />)}
