@@ -10,6 +10,7 @@
   height: 2.5rem;
   text-align: center;
   font-size: 1.3rem;
+  color: black;
 }
 .button {
   width: 5rem;
@@ -17,4 +18,9 @@
   border-radius: 1rem;
   background-color: #f1c40f;
   margin-left: 0.5rem;
+}
+
+.iscompleted {
+  text-decoration: line-through;
+  text-decoration-color: red;
 }
