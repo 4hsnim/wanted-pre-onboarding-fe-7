@@ -1,0 +1,25 @@
+.control {
+  text-align: center;
+  margin: 5rem 0;
+  padding: 1rem;
+}
+
+.control label {
+  margin-right: 1rem;
+}
+
+.control input {
+  width: 20rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.control button {
+  width: 5rem;
+  height: 2.8rem;
+  border-radius: 1rem;
+  background-color: #f1c40f;
+  margin-left: 1rem;
+}

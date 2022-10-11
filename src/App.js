@@ -14,7 +14,7 @@ import "./styles/App.css";
 function App() {
   const isLoggedin = localStorage.getItem("access_token");
   return (
-    <BrowserRouter className="wrapper">
+    <BrowserRouter>
       <Header />
       <Routes>
         <Route

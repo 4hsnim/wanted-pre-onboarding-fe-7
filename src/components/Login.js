@@ -1,9 +1,11 @@
 import Form from "./Form";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
   const loginHandler = async (data) => {
-    console.log(data);
     await axios({
       url: "https://pre-onboarding-selection-task.shop/auth/signin",
       method: "post",
@@ -13,8 +15,8 @@ function Login() {
       data: data,
     })
       .then((response) => {
-        console.log(response.data);
         localStorage.setItem("access_token", response.data.access_token);
+        navigate("/");
       })
       .catch((error) => {
         console.log(error.message);
