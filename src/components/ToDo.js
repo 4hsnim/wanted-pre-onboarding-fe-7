@@ -38,18 +38,19 @@ function ToDo(props) {
   return (
     <div className={styles.wrapper}>
       {!updateMode ? (
-        <div
+        <input
+          defaultValue={props.data.todo}
+          disabled
+          type="text"
           className={
             isCompleted ? `${styles.todo} ${styles.iscompleted}` : styles.todo
           }
-        >
-          {props.data.todo}
-        </div>
+          ref={enteredToDoRef}
+        />
       ) : (
         <input
           defaultValue={props.data.todo}
           autoFocus
-          disabled={!updateMode}
           type="text"
           className={
             isCompleted ? `${styles.todo} ${styles.iscompleted}` : styles.todo
