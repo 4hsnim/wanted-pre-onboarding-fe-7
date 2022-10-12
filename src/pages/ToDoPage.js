@@ -6,6 +6,7 @@ import axios from "axios";
 
 function ToDoPage() {
   const [toDoList, setToDoList] = useState();
+  const [isUpdated, setIsUpdated] = useState(false);
   const access_token = localStorage.getItem("access_token");
   const getTodoList = useCallback(async () => {
     await axios({
@@ -18,6 +19,7 @@ function ToDoPage() {
       .then((response) => {
         console.log(response.data);
         setToDoList(response.data);
+        setIsUpdated(false);
       })
       .catch((error) => {
         console.log(error.message);
@@ -36,7 +38,8 @@ function ToDoPage() {
       data: { todo: enteredTodoValue },
     })
       .then((response) => {
-        setToDoList((prevData) => [...prevData, response.data]);
+        // setToDoList((prevData) => [...prevData, response.data]);
+        setIsUpdated(!isUpdated);
       })
       .catch((error) => {
         console.log(error.message);
@@ -54,7 +57,29 @@ function ToDoPage() {
       },
       data: { todo: enteredTodoValue, isCompleted: !isCompleted },
     })
-      .then((response) => {})
+      .then((response) => {
+        setIsUpdated(!isUpdated);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const updateHandler = async (id, updatedToDo, isCompleted, setUpdateMode) => {
+    const enteredTodoValue = updatedToDo.current.value;
+    await axios({
+      url: `https://pre-onboarding-selection-task.shop/todos/${id}`,
+      method: "put",
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+        "Content-Type": "application/json",
+      },
+      data: { todo: enteredTodoValue, isCompleted: isCompleted },
+    })
+      .then((response) => {
+        setIsUpdated(!isUpdated);
+        setUpdateMode(false);
+      })
       .catch((error) => {
         console.log(error.message);
       });
@@ -69,16 +94,25 @@ function ToDoPage() {
       },
     })
       .then((response) => {
-        setToDoList((prevData) => prevData.filter((data) => data.id !== id));
+        // setToDoList((prevData) => prevData.filter((data) => data.id !== id));
+        setIsUpdated(!isUpdated);
       })
       .catch((error) => {
         console.log(error.message);
       });
   };
 
+  const cancelUpdateMode = (setUpdateMode, id) => {
+    setUpdateMode(false);
+    // setToDoList((prevData)=> {
+    //   let index = prevData.findIndex()
+    // })
+    setIsUpdated(!isUpdated);
+  };
+
   useEffect(() => {
     getTodoList();
-  }, [getTodoList]);
+  }, [getTodoList, isUpdated]);
 
   return (
     <>
@@ -93,7 +127,11 @@ function ToDoPage() {
               id={todo.id}
               isCompleted={todo.isCompleted}
               onComplete={completeHandler}
+              onUpdate={updateHandler}
               onDelete={deleteHandler}
+              isUpdated={isUpdated}
+              setIsUpdated={setIsUpdated}
+              cancelUpdateMode={cancelUpdateMode}
             />
           ))}
       </div>

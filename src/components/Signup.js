@@ -1,7 +1,10 @@
 import Form from "./Form";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
+
   const signupHandler = async (data) => {
     console.log(data);
     await axios({
@@ -14,6 +17,8 @@ function Signup() {
     })
       .then((response) => {
         console.log(response.data);
+        alert("회원가입 성공!");
+        navigate("/login");
       })
       .catch((error) => {
         console.log(error.message);
