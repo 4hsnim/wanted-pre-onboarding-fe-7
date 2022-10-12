@@ -17,9 +17,10 @@ function Login() {
       .then((response) => {
         localStorage.setItem("access_token", response.data.access_token);
         alert("로그인 성공!");
-        navigate("/");
+        window.location.replace("/todo");
       })
       .catch((error) => {
+        alert("로그인 실패!");
         console.log(error.message);
       });
   };
