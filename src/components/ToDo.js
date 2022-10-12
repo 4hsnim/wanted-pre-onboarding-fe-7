@@ -23,7 +23,6 @@ function ToDo(props) {
   const deleteHandler = props.onDelete.bind(null, props.id);
   const goToUpdateMode = () => {
     setUpdateMode(true);
-    enteredToDoRef.current.focus();
   };
 
   const cancelUpdateMode = props.cancelUpdateMode.bind(
@@ -38,16 +37,26 @@ function ToDo(props) {
 
   return (
     <div className={styles.wrapper}>
-      <input
-        defaultValue={props.data.todo}
-        autoFocus
-        disabled={!updateMode}
-        type="text"
-        className={
-          isCompleted ? `${styles.todo} ${styles.iscompleted}` : styles.todo
-        }
-        ref={enteredToDoRef}
-      />
+      {!updateMode ? (
+        <div
+          className={
+            isCompleted ? `${styles.todo} ${styles.iscompleted}` : styles.todo
+          }
+        >
+          {props.data.todo}
+        </div>
+      ) : (
+        <input
+          defaultValue={props.data.todo}
+          autoFocus
+          disabled={!updateMode}
+          type="text"
+          className={
+            isCompleted ? `${styles.todo} ${styles.iscompleted}` : styles.todo
+          }
+          ref={enteredToDoRef}
+        />
+      )}
 
       {isCompleted ? (
         <Button className={styles.button} onClick={completeHandler}>
