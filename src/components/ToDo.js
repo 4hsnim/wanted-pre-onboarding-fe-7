@@ -6,10 +6,11 @@ function ToDo(props) {
   const enteredToDoRef = useRef();
   const [updateMode, setUpdateMode] = useState();
   const isCompleted = props.isCompleted;
+  const enteredToDo = props.data.todo;
   const completeHandler = props.onComplete.bind(
     null,
     props.id,
-    enteredToDoRef,
+    enteredToDo,
     isCompleted
   );
   const updateHandler = props.onUpdate.bind(
@@ -37,7 +38,7 @@ function ToDo(props) {
 
   return (
     <div className={styles.wrapper}>
-      {!updateMode ? (
+      {/* {!updateMode ? (
         <input
           defaultValue={props.data.todo}
           disabled
@@ -51,6 +52,27 @@ function ToDo(props) {
         <input
           defaultValue={props.data.todo}
           autoFocus
+          type="text"
+          className={
+            isCompleted ? `${styles.todo} ${styles.iscompleted}` : styles.todo
+          }
+          ref={enteredToDoRef}
+        />
+      )} */}
+
+      {!updateMode ? (
+        <div
+          className={
+            isCompleted ? `${styles.todo} ${styles.iscompleted}` : styles.todo
+          }
+        >
+          {props.data.todo}
+        </div>
+      ) : (
+        <input
+          defaultValue={props.data.todo}
+          autoFocus
+          disabled={!updateMode}
           type="text"
           className={
             isCompleted ? `${styles.todo} ${styles.iscompleted}` : styles.todo

@@ -46,8 +46,8 @@ function ToDoPage() {
       });
   };
 
-  const completeHandler = async (id, updatedToDo, isCompleted) => {
-    const enteredTodoValue = updatedToDo.current.value;
+  const completeHandler = async (id, enteredToDo, isCompleted) => {
+    // const enteredTodoValue = updatedToDo.current.value;
     await axios({
       url: `https://pre-onboarding-selection-task.shop/todos/${id}`,
       method: "put",
@@ -55,7 +55,7 @@ function ToDoPage() {
         Authorization: `Bearer ${access_token}`,
         "Content-Type": "application/json",
       },
-      data: { todo: enteredTodoValue, isCompleted: !isCompleted },
+      data: { todo: enteredToDo, isCompleted: !isCompleted },
     })
       .then((response) => {
         setIsUpdated(!isUpdated);
