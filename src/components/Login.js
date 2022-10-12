@@ -17,7 +17,8 @@ function Login() {
       .then((response) => {
         localStorage.setItem("access_token", response.data.access_token);
         alert("로그인 성공!");
-        window.location.replace("/todo");
+        navigate("/todo");
+        window.location.reload();
       })
       .catch((error) => {
         alert("로그인 실패!");
